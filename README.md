@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# Компонент Таймера на React с TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Этот проект представляет собой **реализацию компонента таймера**, разработанного в соответствии с поставленной задачей. Он демонстрирует использование хуков `useEffect` и `useRef` для управления интервалами, а также работу с `localStorage` для сохранения состояния.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Описание Задачи (Исходное ТЗ)
 
-## Expanding the ESLint configuration
+**Цель:**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Создать React-компонент, который реализует функциональность таймера обратного отсчета (или прямого отсчета, в данном случае) в секундах. Компонент должен быть интерактивным, сохранять свое состояние и быть типобезопасным с использованием TypeScript.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Требования к Функциональности:**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+1.  **Основная логика таймера:**
+    *   Таймер должен отсчитывать время в секундах, увеличивая значение каждую секунду.
+    *   Отсчет должен начинаться автоматически при монтировании компонента.
+2.  **Отображение:**
+    *   Текущее количество секунд должно быть четко отображено на пользовательском интерфейсе.
+3.  **Управление таймером:**
+    *   Должна быть кнопка, которая позволяет **останавливать** и **запускать** таймер поочередно (переключатель "Старт/Пауза").
+    *   Должна быть отдельная кнопка для **сброса** таймера к начальному значению (0 секунд).
+4.  **Сохранение состояния (Усложнение):**
+    *   При размонтировании компонента (например, при закрытии вкладки браузера или переходе на другую страницу) текущее значение таймера должно **сохраняться** в `localStorage`.
+    *   При повторном монтировании компонента (например, при открытии страницы заново) таймер должен **восстанавливать** свое последнее сохраненное значение из `localStorage`. Если сохраненного значения нет, таймер должен начинаться с 0.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Технические Требования:**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  **React:** Компонент должен быть разработан на React.
+2.  **TypeScript:** Весь код должен быть написан на TypeScript. Это включает в себя:
+    *   Типизацию состояния компонента.
+    *   Типизацию рефов (`useRef`).
+    *   Типизацию пропсов (если применимо).
+3.  **`useEffect`:** Для управления жизненным циклом интервала (запуск, остановка, очистка) необходимо использовать хук `useEffect`.
+4.  **`useRef`:** Для хранения ссылки на интервал (возвращаемый `setInterval`) необходимо использовать хук `useRef`, чтобы избежать проблем с замыканиями и обеспечить корректную очистку.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
